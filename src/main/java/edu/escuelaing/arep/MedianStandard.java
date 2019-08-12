@@ -7,10 +7,14 @@ import java.util.Scanner;
  *
  */
 public class MedianStandard 
+
 {
+    public static Nodo head;
     public static void main( String[] args )
     {
+
         int value;
+
         Scanner sc= new Scanner(System.in);
         do{
             System.out.println("Calculadora de media y desviación estandar");
@@ -24,10 +28,12 @@ public class MedianStandard
             value=sc.nextInt();
             switch(value){
                 case 1:
-                    System.out.println("insertar valor");
+                    System.out.println("digite el valor a insertar");
+                    insertar(sc.nextInt());
                     break;
                 case 2:
                     System.out.println("eliminar valor");
+                    eliminar(sc.nextInt());
                     break;
                 case 3:
                     System.out.println("media");
@@ -37,6 +43,7 @@ public class MedianStandard
                     break;
                 case 5:
                     System.out.println("valores ");
+                    verDatos();
                     break;
                 case 6:
                     break;
@@ -45,5 +52,59 @@ public class MedianStandard
             }
         }while(value!=6);
         sc.close();
+    }
+    public static void insertar(int value){
+        if (head==null){
+            head= new Nodo(null,value);
+        }
+        else{
+            Nodo temp= head;
+            while(temp.getNext()!=null){
+                temp=temp.getNext();
+            }
+            Nodo nuevo=new Nodo(null,value);
+            temp.setNext(nuevo);
+        }
+        System.out.println("valor insertado");
+    }
+    public static void verDatos(){
+        Nodo actual=head;
+        while(actual!=null){
+            System.out.print(actual.value()+" ");
+            actual=actual.getNext();
+        }
+        System.out.println();
+    }
+    public static void eliminar(int value){
+        boolean eliminado=false;
+        if(head!=null){
+            if(head.value()==value){
+                head=head.getNext();
+                eliminado=true;
+            }
+            else{
+                Nodo actual= head.getNext();
+                Nodo anterior=head;
+                while(actual !=null){
+                    if(actual.value()==value){
+                        anterior.setNext(actual.getNext());
+                        eliminado =true;
+                        break;
+                    }
+                actual=actual.getNext();
+                anterior=anterior.getNext();
+
+                }
+
+            }
+        }
+        if (eliminado){
+            System.out.println("elemento eliminado");
+        }
+        else{
+            System.out.println("no se encontro el elemento");
+        }
+        
+
     }
 }

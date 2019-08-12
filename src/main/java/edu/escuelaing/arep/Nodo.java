@@ -13,4 +13,7 @@ public class Nodo{
     public int value(){
         return value;
     }
+    public void setNext(Nodo node){
+        next=node;
+    }
 }
