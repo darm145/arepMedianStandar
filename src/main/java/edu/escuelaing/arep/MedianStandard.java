@@ -28,8 +28,11 @@ public class MedianStandard
             value=sc.nextInt();
             switch(value){
                 case 1:
-                    System.out.println("digite el valor a insertar");
-                    insertar(sc.nextInt());
+                    System.out.println("digite el numero de valores que desea insertar");
+                    int nrovalores=sc.nextInt();
+                    for(int i=0;i<nrovalores;i++){
+                        insertar(sc.nextInt());
+                    }
                     break;
                 case 2:
                     System.out.println("eliminar valor");
@@ -37,9 +40,11 @@ public class MedianStandard
                     break;
                 case 3:
                     System.out.println("media");
+                    System.out.println(media());
                     break;
                 case 4:
                     System.out.println("desviacion estandar ");
+                    System.out.println(desviacion());
                     break;
                 case 5:
                     System.out.println("valores ");
@@ -93,9 +98,7 @@ public class MedianStandard
                     }
                 actual=actual.getNext();
                 anterior=anterior.getNext();
-
                 }
-
             }
         }
         if (eliminado){
@@ -104,7 +107,30 @@ public class MedianStandard
         else{
             System.out.println("no se encontro el elemento");
         }
+    }
+    public static float media(){
+        float valores=0;
+        float sumatoria=0;
+        Nodo actual=head;
+        while (actual!=null){
+            valores+=1;
+            sumatoria+=actual.value();
+            actual=actual.getNext();
+        }
+        float resultado=sumatoria/valores;
+        return resultado;
+    }
+    public static double desviacion(){
+        double media=media();
+        double sumatoria=0;
+        Nodo actual=head;
+        double valores=-1;
+        while (actual!=null){
+            valores+=1;
+            sumatoria+=(actual.value()-media)*(actual.value()-media);
+            actual=actual.getNext();
+        }
         
-
+        return Math.sqrt(sumatoria/valores);
     }
 }
