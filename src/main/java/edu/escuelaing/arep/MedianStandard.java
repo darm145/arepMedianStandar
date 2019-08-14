@@ -1,20 +1,22 @@
 package edu.escuelaing.arep;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 /**
- * Hello world!
+ * 
  *
  */
 public class MedianStandard 
 
 {
-    public static Nodo head;
+    private static LinkedList elementos;
     public static void main( String[] args )
     {
 
         int value;
-
+        elementos = new LinkedList();
         Scanner sc= new Scanner(System.in);
         do{
             System.out.println("Calculadora de media y desviación estandar");
@@ -58,60 +60,23 @@ public class MedianStandard
         }while(value!=6);
         sc.close();
     }
-    public static void insertar(int value){
-        if (head==null){
-            head= new Nodo(null,value);
-        }
-        else{
-            Nodo temp= head;
-            while(temp.getNext()!=null){
-                temp=temp.getNext();
-            }
-            Nodo nuevo=new Nodo(null,value);
-            temp.setNext(nuevo);
-        }
-        System.out.println("valor insertado");
+    
+    private static void verDatos() {
+        elementos.verDatos();
     }
-    public static void verDatos(){
-        Nodo actual=head;
-        while(actual!=null){
-            System.out.print(actual.value()+" ");
-            actual=actual.getNext();
-        }
-        System.out.println();
+
+    private static void eliminar(int value) {
+        elementos.eliminar(value);
     }
-    public static void eliminar(int value){
-        boolean eliminado=false;
-        if(head!=null){
-            if(head.value()==value){
-                head=head.getNext();
-                eliminado=true;
-            }
-            else{
-                Nodo actual= head.getNext();
-                Nodo anterior=head;
-                while(actual !=null){
-                    if(actual.value()==value){
-                        anterior.setNext(actual.getNext());
-                        eliminado =true;
-                        break;
-                    }
-                actual=actual.getNext();
-                anterior=anterior.getNext();
-                }
-            }
-        }
-        if (eliminado){
-            System.out.println("elemento eliminado");
-        }
-        else{
-            System.out.println("no se encontro el elemento");
-        }
+
+    private static void insertar(int value) {
+        elementos.insertar(value);
     }
-    public static float media(){
+
+    public static float media() {
         float valores=0;
         float sumatoria=0;
-        Nodo actual=head;
+        Nodo actual=elementos.getHead();
         while (actual!=null){
             valores+=1;
             sumatoria+=actual.value();
@@ -120,17 +85,20 @@ public class MedianStandard
         float resultado=sumatoria/valores;
         return resultado;
     }
-    public static double desviacion(){
+    public static String desviacion(){
         double media=media();
         double sumatoria=0;
-        Nodo actual=head;
+        Nodo actual=elementos.getHead();
         double valores=-1;
+        DecimalFormat df= new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        
         while (actual!=null){
             valores+=1;
             sumatoria+=(actual.value()-media)*(actual.value()-media);
             actual=actual.getNext();
         }
         
-        return Math.sqrt(sumatoria/valores);
+        return df.format(Math.sqrt(sumatoria/valores));
     }
 }
