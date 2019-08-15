@@ -6,13 +6,13 @@ package edu.escuelaing.arep;
  */
 public class Nodo{
     private Nodo next;
-    private int value;
+    private float value;
     /**
      * Constructor de la clase nodo, sirve para crear un Nodo 
      * @param next indica el nodo que va en la posicion inmediatamente siguiente.
      * @param value indica el valor numerico del elemento.
      */
-    public Nodo(Nodo next,int value){
+    public Nodo(Nodo next,float value){
         this.next=next;
         this.value=value;
     }
@@ -27,7 +27,7 @@ public class Nodo{
      * funcion que retorna el valor actual del nodo
      * @return int valor, valor numerico asignado al nodo
      */
-    public int value(){
+    public float value(){
         return value;
     }
     /**
