@@ -1,6 +1,6 @@
-#Mean and Standard Deviation using Linked Lists
-#Author : David Daniel A. Ramirez Moreno
-##Architecture
+# Mean and Standard Deviation using Linked Lists  
+# Author : David Daniel A. Ramirez Moreno
+## Architecture
 ![](images/diagrama.jpg)  
 on the following image we can make a break down of the architecture presented on the project.  
 as we can see we have 3 classes, linked List, Node And MedianStandard
