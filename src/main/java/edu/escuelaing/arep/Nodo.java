@@ -1,8 +1,8 @@
 package edu.escuelaing.arep;
 /**
- * 
- * @author David Ramirez
  * la siguiente clase representa un elemento de la linked list denominado como nodo dentro de sus propiedades contiene el valor y el nodo siguiente
+ * @author David Ramirez
+ * 
  */
 public class Nodo{
     private Nodo next;
