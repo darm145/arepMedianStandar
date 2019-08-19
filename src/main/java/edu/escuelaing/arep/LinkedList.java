@@ -19,7 +19,7 @@ public class LinkedList{
      * metodo para insertar un elemento al final de la linked list
      * @param value el valor del elemento a insertar en la linked list
      */
-    public  void insertar(float value){
+    public  void insertar(Double value){
         if (head==null){
             head= new Nodo(null,value);
         }
@@ -31,7 +31,7 @@ public class LinkedList{
             Nodo nuevo=new Nodo(null,value);
             temp.setNext(nuevo);
         }
-        System.out.println("valor insertado");
+        
     }
     /**
      * metodo para eliminar un elemento de la linked list 

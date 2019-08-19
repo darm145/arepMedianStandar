@@ -3,6 +3,8 @@ package edu.escuelaing.arep;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  *
@@ -13,54 +15,29 @@ public class MedianStandard
 
 {
     
-    public static void main( String[] args )
+    public static void main( String[] args )  throws FileNotFoundException
     {
-
-        int value;
+        String path="testcases/case2.txt";
+        Double[] Results=getResults(path);
+        System.out.println(Results[0]);
+        System.out.println(Results[1]);
+        
+    }
+    /**
+     * metodo que permite obtener la media y la desviacion estandar de un archivo de texto con los datos
+     * @param path direccion del archivo a leer
+     * @return Double[] results, lista de Double donde en la primera casilla se encuentra la media y en la segunda se encuentra la desviacion
+     */
+    public static Double[] getResults(String path) throws FileNotFoundException{
         LinkedList elementos = new LinkedList();
-        Scanner sc= new Scanner(System.in);
-        do{
-            System.out.println("Calculadora de media y desviación estandar");
-            System.out.println("Seleccione una opción");
-            System.out.println("1. insertar nuevos valores");
-            System.out.println("2. eliminar un valor");
-            System.out.println("3. calcular media");
-            System.out.println("4. calcular desviación estandar");
-            System.out.println("5. mostrar los valores actuales");
-            System.out.println("6. finalizar");
-            value=sc.nextInt();
-            switch(value){
-                case 1:
-                    System.out.println("digite el numero de valores a insertar");
-                    int nrovalores=sc.nextInt();
-                    System.out.println("digite los valores");
-                    for(int i=0;i<nrovalores;i++){
-                        insertar(sc.nextInt(),elementos);
-                    }
-                    break;
-                case 2:
-                    System.out.println("eliminar valor");
-                    eliminar(sc.nextInt(),elementos);
-                    break;
-                case 3:
-                    System.out.println("media");
-                    System.out.println(media(elementos));
-                    break;
-                case 4:
-                    System.out.println("desviacion estandar ");
-                    System.out.println(desviacion(elementos));
-                    break;
-                case 5:
-                    System.out.println("valores ");
-                    verDatos(elementos);
-                    break;
-                case 6:
-                    break;
-                default:
-                    System.out.println("opcion invalida");
-            }
-        }while(value!=6);
+        Scanner sc= new Scanner(new File(path));
+        while(sc.hasNextDouble()){
+            elementos.insertar(sc.nextDouble());
+        }
         sc.close();
+        Double[] results={media(elementos),desviacion(elementos)};
+        return results;
+        
     }
     /**
      * permite ver los datos actualmente almacenados.
@@ -83,7 +60,7 @@ public class MedianStandard
      *  @param elementos linked list con los elementos
      */
 
-    private static void insertar(float value,LinkedList elementos) {
+    private static void insertar(Double value,LinkedList elementos) {
         elementos.insertar(value);
     }
     /**
@@ -91,16 +68,16 @@ public class MedianStandard
      * @param elementos linked list con los elementos
      * @return el valor de la media para los elementos recibidos
      */
-    public static float media(LinkedList elementos) {
-        float valores=0;
-        float sumatoria=0;
+    public static Double media(LinkedList elementos) {
+        Double valores=0.0;
+        Double sumatoria=0.0;
         Nodo actual=elementos.getHead();
         while (actual!=null){
             valores+=1;
             sumatoria+=actual.value();
             actual=actual.getNext();
         }
-        float resultado=sumatoria/valores;
+        Double resultado=sumatoria/valores;
         return resultado;
     }
     /**
@@ -108,20 +85,21 @@ public class MedianStandard
      *  @param elementos linked list con los elementos
      * @return el valor de la desviacion estandar de los datos ingresados
      */
-    public static String desviacion(LinkedList elementos){
-        double media=media(elementos);
-        double sumatoria=0;
+    public static Double desviacion(LinkedList elementos){
+        Double media=media(elementos);
+        Double sumatoria=0.0;
         Nodo actual=elementos.getHead();
-        double valores=-1;
+        Double valores=-1.0;
         DecimalFormat df= new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
         
         while (actual!=null){
+            
             valores+=1;
             sumatoria+=(actual.value()-media)*(actual.value()-media);
             actual=actual.getNext();
         }
         
-        return df.format(Math.sqrt(sumatoria/valores));
+        return Double.parseDouble(df.format(Math.sqrt(sumatoria/valores)).replace(",", "."));
     }
 }
